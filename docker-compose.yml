@@ -1,6 +1,7 @@
 version: '3'
 services:
   worker:
+    build: '.'
     image: "mikedh/selenium-simple"
     shm_size: '2gb'
     ports:
