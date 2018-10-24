@@ -1,10 +1,7 @@
-# image is based on ubuntu 16.04
-# allows us to do headless chrome selenium testing
-FROM selenium/standalone-chrome
+# image is based on Ubuntu 16.04
+# has headless Chrome set up
+FROM selenium/standalone-chrome:3.14.0
 MAINTAINER Mike Dawson-Haggerty <mikedh@kerfed.com>
-
-# packages required to build gpcio
-#ENV GOOGLE_BUILD="gcc linux-headers build-base libc-dev make musl-dev"
 
 # get pip and python3
 RUN sudo apt-get update && \
@@ -19,5 +16,5 @@ COPY . /opt/monitor
 RUN sudo chown seluser: -R /opt/monitor
 WORKDIR /opt/monitor
 
-#-u is unbuffered, otherwise prints are eaten
+# -u is unbuffered, otherwise prints are eaten
 CMD ["python3", "-u", "monitor.py"]

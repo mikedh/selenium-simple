@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 
-import time
 import os
+import time
+import logging
+
+log = logging.getLogger('seltest')
+log.addHandler(logging.NullHandler())
 
 
 class WebTest(object):
@@ -15,7 +19,7 @@ class WebTest(object):
     """
 
     def __enter__(self):
-        print('Starting Chrome')
+        log.debug('Starting Chrome')
 
         # start a headless chrome webdriver
         # options are so that it works in Docker
@@ -26,10 +30,11 @@ class WebTest(object):
 
         self.driver = webdriver.Chrome(options=options)
         self.driver.implicitly_wait(30)
-        print('Started Chrome')
+        log.debug('Started Chrome')
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.driver.quit()
+        log.debug('Exited Chrome')
 
     def test_base(self):
         """
@@ -64,7 +69,7 @@ class WebTest(object):
         assert element.size['height'] > 10
         assert element.size['width'] > 10
 
-        print('Succeeded!')
+        log.debug('All Checks Succeeded!')
 
 
 if __name__ == "__main__":
