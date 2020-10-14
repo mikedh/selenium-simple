@@ -1,6 +1,6 @@
 # image is based on Ubuntu 16.04
 # has headless Chrome set up
-FROM selenium/standalone-chrome:3.14.0
+FROM selenium/standalone-chrome:3.141.59
 MAINTAINER Mike Dawson-Haggerty <mikedh@kerfed.com>
 
 # get pip and python3

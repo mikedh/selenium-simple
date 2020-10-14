@@ -2,6 +2,7 @@
 A worker which provides periodic monitoring and testing.
 """
 import time
+import random
 import logging
 
 # import our tester object
@@ -21,7 +22,7 @@ log.addHandler(_handler)
 log.setLevel(logging.DEBUG)
 
 
-def integration_test(period):
+def integration_test(period, randomize=False):
     """
     Will run an integration test every `period`.
 
@@ -42,10 +43,14 @@ def integration_test(period):
                 continue
         log.debug('Successfully tested in {:0.3f}'.format(
             time.time() - tic))
-        log.debug('Sleeping for {}s'.format(period))
-        time.sleep(period)
+        if randomize:
+            current = random.random() * period
+        else:
+            current = period
+        log.debug(f'Sleeping for {current}s')
+        time.sleep(current)
 
 
 if __name__ == "__main__":
     # start the integration test
-    integration_test(period=500.0)
+    integration_test(period=100.0, randomize=True)
